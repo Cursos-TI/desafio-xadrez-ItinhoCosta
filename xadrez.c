@@ -6,6 +6,10 @@ int main() {
     int torre = 5;
     int bispo = 5;
     int rainha = 8;
+
+    // Novas variaveis para a movimentacao do Cavalo
+    int cavalo_baixo = 2;
+    int cavalo_esquerda = 1;
     
     printf("--- Simulacao de Movimento de Pecas de Xadrez ---\n\n");
 
@@ -36,6 +40,24 @@ int main() {
         printf("Esquerda\n");
         R++; // Incrementa 'j' a cada iteracao.
     } while (R < rainha);
+
+    // --- Movimentacao do Cavalo (usando loops aninhados) ---
+    printf("\n--> Movendo o Cavalo (em L)\n\n");
+    
+    // O loop 'for' externo controla o movimento de 2 casas para baixo.
+    printf("Movendo 2 casas para baixo:\n\n");
+    for (int i = 0; i < cavalo_baixo; i++) {
+        printf("Baixo\n");
+    }
+    
+    // O loop 'while' interno controla o movimento de 1 casa para a esquerda.
+    // Ele é aninhado dentro da logica do movimento do Cavalo.
+    printf("\nMovendo 1 casa para a esquerda:\n\n");
+    int j = 0;
+    while (j < cavalo_esquerda) {
+        printf("Esquerda\n");
+        j++;
+    }
     
     printf("\nSimulacao de movimento concluida!\n");
     
