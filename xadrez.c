@@ -1,64 +1,89 @@
 #include <stdio.h>
 
+// Funcao recursiva para a movimentacao da Torre
+void moverTorre(int casas) {
+    // Condicao de parada da recursao
+    if (casas <= 0) {
+        return; // A funcao para de ser chamada
+    }
+    printf("Direita\n");
+    // Chamada recursiva para mover a proxima casa
+    moverTorre(casas - 1);
+}
+
+// Funcao recursiva para a movimentacao da Rainha
+void moverRainha(int casas) {
+    if (casas <= 0) {
+        return;
+    }
+    printf("Esquerda\n");
+    moverRainha(casas - 1);
+}
+
+// Funcao recursiva para a movimentacao do Bispo
+void moverBispo(int casas) {
+    // A condicao de parada e quando as casas acabarem.
+    if (casas <= 0) {
+        return;
+    }
+    printf("Cima Direita\n");
+    // A funcao se chama novamente, diminuindo o contador de casas.
+    moverBispo(casas - 1);
+}
+
 int main() {
-    // Declaracao de variaveis para o numero de casas que cada peca se move.
-
+    printf("--- Simulacao de Movimento de Pecas de Xadrez - Nivel Mestre ---\n\n");
+    
+    // As variaveis sao usadas para passar o valor inicial para as funcoes
     int torre = 5;
-    int bispo = 5;
     int rainha = 8;
-
-    // Novas variaveis para a movimentacao do Cavalo
-    int cavalo_baixo = 2;
-    int cavalo_esquerda = 1;
+    int bispo = 5;
     
-    printf("--- Simulacao de Movimento de Pecas de Xadrez ---\n\n");
-
-    // --- Movimentacao da Torre (usandondo for) ---
-    // A Torre se move 5 casas para a direita.
+    // --- Movimentacao da Torre (usando recursao) ---
     printf("--> Movendo a Torre 5 casas para a direita:\n\n");
-    // O loop 'for' e ideal pois sabemos o numero exato de repeticoes (5).
-    for (int i = 0; i < torre; i++) {
-        printf("Direita\n");
-    }
+    moverTorre(torre);
     
-    // --- Movimentacao do Bispo (usando while) ---
-    // O Bispo se move 5 casas na diagonal para cima e a direita.
-    printf("\n--> Movendo o Bispo 5 casas na diagonal superior direita:\n\n");
-    // O loop 'while' e usado para demonstrar outra estrutura de repeticao.
-    int contador = 0;
-    while (contador < bispo) {
-        printf("Cima Direita\n");
-        contador++; // Incrementa o contador para evitar um loop infinito.
-    }
-    
-    // --- Movimentacao da Rainha (usando do-while) ---
-    // A Rainha se move 8 casas para a esquerda.
+    // --- Movimentacao da Rainha (usando recursao) ---
     printf("\n--> Movendo a Rainha 8 casas para a esquerda:\n\n");
-    // O loop 'do-while' garante que o corpo do loop execute pelo menos uma vez.
-    int R = 0;
-    do {
-        printf("Esquerda\n");
-        R++; // Incrementa 'j' a cada iteracao.
-    } while (R < rainha);
+    moverRainha(rainha);
+    
+    // --- Movimentacao do Bispo (usando recursao) ---
+    printf("\n--> Movendo o Bispo 5 casas na diagonal superior direita:\n\n");
+    moverBispo(bispo);
 
-    // --- Movimentacao do Cavalo (usando loops aninhados) ---
-    printf("\n--> Movendo o Cavalo (em L)\n\n");
+    // --- Movimentacao do Cavalo (usando loops aninhados com break) ---
+    printf("\n--> Movendo o Cavalo (em L) uma vez para cima e a direita:\n\n");
     
-    // O loop 'for' externo controla o movimento de 2 casas para baixo.
-    printf("Movendo 2 casas para baixo:\n\n");
-    for (int i = 0; i < cavalo_baixo; i++) {
-        printf("Baixo\n");
+    int i, j;
+    // O loop externo controla o movimento para cima
+    for (i = 0; i < 2; i++) {
+        // O loop interno controla o movimento para a direita
+        for (j = 0; j < 1; j++) {
+            printf("Cima\n"); // Primeira parte do "L"
+        }
     }
     
-    // O loop 'while' interno controla o movimento de 1 casa para a esquerda.
-    // Ele é aninhado dentro da logica do movimento do Cavalo.
-    printf("\nMovendo 1 casa para a esquerda:\n\n");
-    int j = 0;
-    while (j < cavalo_esquerda) {
-        printf("Esquerda\n");
-        j++;
+    printf("Direita\n"); // Segunda parte do "L"
+
+    // Uma implementacao alternativa e mais robusta com condicoes duplas e break
+    printf("\n--> Movendo o Cavalo (em L) - Segunda forma (com break):\n\n");
+    for (int passo_y = 0, passo_x = 0; passo_y < 2 || passo_x < 1; passo_y++, passo_x++) {
+        // Logica para o movimento vertical (para cima)
+        if (passo_y < 2) {
+            printf("Cima\n");
+        } else {
+            // Se o movimento vertical ja foi completado, sai do loop
+            break;
+        }
+
+        // Logica para o movimento horizontal (para a direita)
+        if (passo_x < 1) {
+            printf("Direita\n");
+        } else {
+            break;
+        }
     }
-    
+
     printf("\nSimulacao de movimento concluida!\n");
     
     return 0;
